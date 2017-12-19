@@ -1,5 +1,5 @@
 {
-  "name": "Modal",
+  "name": "cefc-ui-modal",
   "version": "0.0.1",
   "description": "CEFC-UI Component",
   "main": "build/index.js",
@@ -17,7 +17,7 @@
     "@cefc-ui/style": "~0.0.3",
     "cefc-tools": "^0.0.5",
     "cefc-ui-button": "^0.0.4",
-    "cefc-ui-icon": "^0.1.0",
+    "cefc-ui-icon": "^0.0.12",
     "cefc-ui-style": "^0.0.4",
     "classnames": "~2.2.5",
     "prop-types": "~15.6.0",

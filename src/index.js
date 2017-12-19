@@ -119,7 +119,7 @@ class Modal extends Component {
     return (
       <div className={`${prefixCls}-header`}>
         <span>{header}</span>
-        {closeIcon && <Icon className={`${prefixCls}-closeIcon`} type="icon-delete" onClick={this.handleClose} />}
+        {closeIcon && <Icon className={`${prefixCls}-closeIcon`} type="delete"  onClick={this.handleClose} />}
       </div>
     )
   }
