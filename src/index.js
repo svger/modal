@@ -7,13 +7,11 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import style from './style/index.less';
 import classname from 'classnames';
 import Icon from 'cefc-ui-icon';
 import Button from 'cefc-ui-button';
+import style from './style/index.less';
 
-const REMOVE_MODAL = 'REMOVE_MODAL';
-const ADD_MODAL = 'ADD_MODAL';
 const defaultPrefixCls = 'cefc-modal';
 
 class Modal extends Component {
@@ -31,6 +29,7 @@ class Modal extends Component {
     onHide: PropTypes.func,
     className: PropTypes.string,
     isOpen: PropTypes.bool,
+    children: PropTypes.element
   }
 
   static defaultProps = {
@@ -57,7 +56,7 @@ class Modal extends Component {
   }
 
   getConfirmBtns = () => {
-    const { cancelText, confirmText, theme, prefixCls } = this.props;
+    const { cancelText, confirmText, prefixCls } = this.props;
 
     return [cancelText, confirmText].map((item, index) => {
       return {
@@ -78,11 +77,11 @@ class Modal extends Component {
   }
 
   getFooterBtns = () => {
-    const { type, confirmText, theme } = this.props;
+    const { type, confirmText } = this.props;
 
-    switch(type) {
+    switch (type) {
       case 'alert':
-        return <Button color="blue" theme={theme} onClick={this.handleConfirm} full radius>{confirmText}</Button>
+        return <Button color="blue" onClick={this.handleConfirm} full radius>{confirmText}</Button>
 
       case 'confirm':
         return this.getConfirmBtns();
@@ -114,12 +113,12 @@ class Modal extends Component {
 
   //Render Modal Header
   renderHeader = () => {
-    const { header, closeIcon, prefixCls} = this.props;
+    const { header, closeIcon, prefixCls } = this.props;
 
     return (
       <div className={`${prefixCls}-header`}>
         <span>{header}</span>
-        {closeIcon && <Icon className={`${prefixCls}-closeIcon`} type="delete"  onClick={this.handleClose} />}
+        {closeIcon && <Icon className={`${prefixCls}-closeIcon`} type="delete" onClick={this.handleClose} />}
       </div>
     )
   }
@@ -127,6 +126,7 @@ class Modal extends Component {
   //Render buttons
   renderFooter = () => {
     const { prefixCls } = this.props;
+
     return (
       <div className={`${prefixCls}-footer`}>
         {this.getFooterBtns()}
@@ -135,7 +135,7 @@ class Modal extends Component {
   }
 
   renderContent = () => {
-    const prefixCls = this.props.prefixCls;
+    const { prefixCls } = this.props;
     const modalContent = this.props.content || this.props.children;
     const contentCls = classname(`${prefixCls}-content`, {
       [`${prefixCls}-content_text`]: typeof modalContent === 'string'
@@ -174,6 +174,3 @@ class Modal extends Component {
 }
 
 export default Modal;
-
-
-

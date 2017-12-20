@@ -14,6 +14,7 @@
 |onHide|Modal关闭的回调函数|func|无|
 |className|外部传入类|string|无|
 |isOpen|是否显示Modal|bool|true|
+|children|Modal的子组件|element|无|
 
 ###使用方式
 ```
