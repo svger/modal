@@ -1,6 +1,6 @@
 {
   "name": "cefc-ui-modal",
-  "version": "0.0.1",
+  "version": "0.0.11",
   "description": "CEFC-UI Component",
   "main": "build/index.js",
   "scripts": {
@@ -20,9 +20,10 @@
     "cefc-ui-icon": "^0.0.12",
     "cefc-ui-style": "^0.0.4",
     "classnames": "~2.2.5",
+    "eventemitter3": "^3.0.0",
     "prop-types": "~15.6.0",
     "react": "~16.1.1",
-    "react-dom": "~16.1.1"
+    "react-dom": "^16.2.0"
   },
   "devDependencies": {
     "@cefc-utils/tools": "~1.0.25",

@@ -2,7 +2,7 @@
 |属性|说明|类型|默认值|
 |---|---|:--:|:----:|
 |prefixCls|样式前缀，如`cefc-modal`,可用于自定义样式|string|无|
-|header|Modal的头部|string &#124; node|无|
+|header|Modal的头部|string &#124; element|无|
 |type|Modal的类别，有alert和confirm两个值|string|confirm|
 |content|Modal的提示内容|string &#124; element|无|
 |confirmText|确认按钮的文字|string &#124; element|无|
@@ -18,6 +18,16 @@
 
 ###使用方式
 ```
-<Modal type="confirm" header="我是标题" content="我是内容" />
-<Modal type="alert" header="标题" content="内容"/>
+Modal.open({
+    type="confirm" 
+    header="我是标题" 
+    content="我是内容"
+});
+
+Modal.open({
+    type="confirm" 
+    header="我是标题" 
+    content="我是内容"
+});
+
 ```

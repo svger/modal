@@ -6,15 +6,57 @@
  */
 
 import React, { Component } from 'react';
+import reactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import classname from 'classnames';
 import Icon from 'cefc-ui-icon';
 import Button from 'cefc-ui-button';
+import EventEmitter from 'eventemitter3';
 import style from './style/index.less';
+
+let uid = Date.now();
+const nextUid = () => {
+  return (uid++).toString(36);
+}
+
+let modalContainer = '';
+let ModalComponent = '';
+let modals = [];
+let eventEmitter = new EventEmitter();
+const REMOVE_MODAL = 'REMOVE_MODAL';
+const ADD_MODAL = 'ADD_MODAL';
+
+const open = (options) => {
+  if (!modalContainer) {
+    createModalContainer();
+  }
+
+  if(!options.id) {
+    options.id = nextUid();
+  }
+
+  eventEmitter.emit(ADD_MODAL, options);
+
+  return options.id;
+}
+
+const close = (modalId) => {
+  eventEmitter.emit(REMOVE_MODAL, modalId);
+}
+
+const createModalContainer = () => {
+  modalContainer = document.createElement('div');
+  document.body.appendChild(modalContainer);
+  reactDOM.render(<Modal isOpen={false} />, modalContainer);
+}
+
+const createModal = (options) => {
+  reactDOM.render(<Modal {...options} />, modalContainer);
+}
 
 const defaultPrefixCls = 'cefc-modal';
 
-class Modal extends Component {
+class ModalContainer extends Component {
   static propTypes = {
     prefixCls: PropTypes.string,
     header: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
@@ -172,5 +214,39 @@ class Modal extends Component {
     )
   }
 }
+
+
+class Modal extends Component {
+  constructor(props) {
+    super(props);
+    if (!ModalComponent) {
+      ModalComponent = ModalContainer;
+    }
+  }
+
+  componentDidMount() {
+    eventEmitter.on(ADD_MODAL, this.addModal);
+    eventEmitter.on(REMOVE_MODAL, this.removeModal);
+  }
+
+  addModal = (options) => {
+    modals.push(options);
+    createModal(options);
+  }
+
+  removeModal = (modalId) => {
+    const modal = modals.filter((m) => {
+      return m.id === modalId;
+    });
+  }
+
+
+  render() {
+    return <ModalComponent ref="modalComponent" {...this.props} />;
+  }
+}
+
+Modal.open = open;
+Modal.close = close;
 
 export default Modal;
